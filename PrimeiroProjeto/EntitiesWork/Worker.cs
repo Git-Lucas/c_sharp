@@ -1,10 +1,10 @@
-﻿using PrimeiroProjeto.Entities_2.Enuns;
+﻿using PrimeiroProjeto.EntitiesWork.Enums;
 using PrimeiroProjeto.EntitiesWork;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PrimeiroProjeto.Entities_2
+namespace PrimeiroProjeto.EntitiesWork
 {
     class Worker
     {
