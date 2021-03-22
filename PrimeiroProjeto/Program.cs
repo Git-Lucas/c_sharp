@@ -3,6 +3,7 @@ using PrimeiroProjeto.EntitiesWork.Enums;
 using PrimeiroProjeto.EntitiesWork;
 using System;
 using System.Collections.Generic;
+using PrimeiroProjeto.EntitiesSocialMedia;
 
 namespace PrimeiroProjeto
 {
@@ -398,58 +399,75 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            //Declaração das variáveis
-            string nameDepartment;
-            string nameWorker;
-            WorkerLevel level;
-            double baseSalary;
-            int resposta;
-            DateTime date;
-            double valuePerHour;
-            int hours;
-            string period;
+            ////Declaração das variáveis
+            //string nameDepartment;
+            //string nameWorker;
+            //WorkerLevel level;
+            //double baseSalary;
+            //int resposta;
+            //DateTime date;
+            //double valuePerHour;
+            //int hours;
+            //string period;
 
-            //Entrada e leitura de dados Department
-            Console.Write("Enter department's name: ");
-            nameDepartment = Console.ReadLine();
-            //Instancia Department
-            Department department = new Department(nameDepartment);
+            ////Entrada e leitura de dados Department
+            //Console.Write("Enter department's name: ");
+            //nameDepartment = Console.ReadLine();
+            ////Instancia Department
+            //Department department = new Department(nameDepartment);
 
-            //Entrada e leitura de dados Worker
-            Console.Write("\n\nEnter worker data:\nName: ");
-            nameWorker = Console.ReadLine();
-            Console.Write("Level (Junior / MidLevel / Senior): ");
-            level = Enum.Parse<WorkerLevel>(Console.ReadLine());
-            Console.Write("Base salary: ");
-            baseSalary = double.Parse(Console.ReadLine());
-            //Instancia Worker
-            Worker worker = new Worker(nameWorker, level, baseSalary, department);
+            ////Entrada e leitura de dados Worker
+            //Console.Write("\n\nEnter worker data:\nName: ");
+            //nameWorker = Console.ReadLine();
+            //Console.Write("Level (Junior / MidLevel / Senior): ");
+            //level = Enum.Parse<WorkerLevel>(Console.ReadLine());
+            //Console.Write("Base salary: ");
+            //baseSalary = double.Parse(Console.ReadLine());
+            ////Instancia Worker
+            //Worker worker = new Worker(nameWorker, level, baseSalary, department);
 
-            //Entrada e leitura do número de contratos que serão cadastrados
-            Console.Write("\n\nHow many contracts to this worker? ");
-            resposta = int.Parse(Console.ReadLine());
-            for (int i = 0; i < resposta; i++)
-            {
-                //Entrada e leitura de dados HourContract
-                Console.Write($"\nEnter #{i + 1} contract data:\nDate (DD/MM/YYYY): ");
-                date = DateTime.Parse(Console.ReadLine());
-                Console.Write("Value per hour: ");
-                valuePerHour = double.Parse(Console.ReadLine());
-                Console.Write("Duration (hours): ");
-                hours = int.Parse(Console.ReadLine());
-                //Instancia HourContract
-                HourContract contract = new HourContract(date, valuePerHour, hours);
-                //Adiciona o objeto HourContract ao objeto Worker
-                worker.AddContract(contract);
-            }
+            ////Entrada e leitura do número de contratos que serão cadastrados
+            //Console.Write("\n\nHow many contracts to this worker? ");
+            //resposta = int.Parse(Console.ReadLine());
+            //for (int i = 0; i < resposta; i++)
+            //{
+            //    //Entrada e leitura de dados HourContract
+            //    Console.Write($"\nEnter #{i + 1} contract data:\nDate (DD/MM/YYYY): ");
+            //    date = DateTime.Parse(Console.ReadLine());
+            //    Console.Write("Value per hour: ");
+            //    valuePerHour = double.Parse(Console.ReadLine());
+            //    Console.Write("Duration (hours): ");
+            //    hours = int.Parse(Console.ReadLine());
+            //    //Instancia HourContract
+            //    HourContract contract = new HourContract(date, valuePerHour, hours);
+            //    //Adiciona o objeto HourContract ao objeto Worker
+            //    worker.AddContract(contract);
+            //}
 
-            //Entrada e leitura do período a ser consultado
-            Console.Write("\n\nEnter month and year to calculate income (MM/YYYY): ");
-            period = Console.ReadLine();
-            //Exibição dos dados do objeto Worker, e do faturamento no período
-            Console.Write($"Name: {worker.Name}" +
-                $"\nDepartment: {worker.Department.Name}" +
-                $"\nIncome for {period}: R$ {worker.Income(int.Parse(period.Substring(3)), int.Parse(period.Substring(0, 2))).ToString("F2")}");
+            ////Entrada e leitura do período a ser consultado
+            //Console.Write("\n\nEnter month and year to calculate income (MM/YYYY): ");
+            //period = Console.ReadLine();
+            ////Exibição dos dados do objeto Worker, e do faturamento no período
+            //Console.Write($"Name: {worker.Name}" +
+            //    $"\nDepartment: {worker.Department.Name}" +
+            //    $"\nIncome for {period}: R$ {worker.Income(int.Parse(period.Substring(3)), int.Parse(period.Substring(0, 2))).ToString("F2")}");
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            Post post1 = new Post(DateTime.Parse("21/06/2018 13:05:44"), "Traveling to New Zeland", "I'm going to visit this wonderful contry!", 12);
+            Comment comment1 = new Comment("Have a nice trip");
+            Comment comment2 = new Comment("Wow that's awesome!");
+            post1.AddComment(comment1);
+            post1.AddComment(comment2);
+
+            Post post2 = new Post(DateTime.Parse("28/07/2018 23:14:19"), "Good night guys", "See you tomorrow", 5);
+            Comment comment3 = new Comment("Good night");
+            Comment comment4 = new Comment("Maybe the Force be with you");
+            post2.AddComment(comment1);
+            post2.AddComment(comment2);
+
+            Console.WriteLine(post1);
+            Console.WriteLine(post2);
         }
     }
 }
