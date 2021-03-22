@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PrimeiroProjeto {
-    class Program {
-        static void Main(string[] args) {
-            //Console.WriteLine("Produto 1 (string):");
-            //string produto1 = Console.ReadLine();
-            //Console.WriteLine("\nProduto 2 (string):");
-            //string produto2 = Console.ReadLine();
+namespace PrimeiroProjeto
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Produto 1 (string):");
+            string produto1 = Console.ReadLine();
+            Console.WriteLine("\nProduto 2 (string):");
+            string produto2 = Console.ReadLine();
 
-            //Console.WriteLine("\nIdade (byte):");
-            //byte idade = byte.Parse(Console.ReadLine());
-            //Console.WriteLine("\nCodigo (int):");
+            Console.WriteLine("\nIdade (byte):");
+            byte idade = byte.Parse(Console.ReadLine());
+            Console.WriteLine("\nCodigo (int):");
             //int codigo = int.Parse(Console.ReadLine());
             //Console.WriteLine("\nGênero (char):");
             //char genero = char.Parse(Console.ReadLine());
@@ -50,7 +53,8 @@ namespace PrimeiroProjeto {
             //int alcool = 0, gasolina = 0, diesel = 0;
             //int resposta = int.Parse(Console.ReadLine());
 
-            //while (resposta != 4) {
+            //while (resposta != 4)
+            //{
             //    if (resposta == 1)
             //        alcool++;
             //    else if (resposta == 2)
@@ -67,7 +71,8 @@ namespace PrimeiroProjeto {
             //Console.Write("Digite um número entre 1 e 100: ");
             //int x = int.Parse(Console.ReadLine());
 
-            //for (int i = 1; i <= x; i++) {
+            //for (int i = 1; i <= x; i++)
+            //{
             //    if (i % 2 != 0)
             //        Console.WriteLine(i);
             //}
@@ -77,7 +82,8 @@ namespace PrimeiroProjeto {
             //Console.Write("Digite um número N: ");
             //int x = int.Parse(Console.ReadLine());
 
-            //for (int i = 1; i <= x; i++) {
+            //for (int i = 1; i <= x; i++)
+            //{
             //    Console.WriteLine($"{i} {Math.Pow(i, 2)} {Math.Pow(i, 3)}");
             //}
 
@@ -161,11 +167,13 @@ namespace PrimeiroProjeto {
 
             //Console.Write("Haverá depósito inicial (s/n)? ");
             //resposta = Console.ReadLine();
-            //if (resposta == "s" || resposta == "S") {
+            //if (resposta == "s" || resposta == "S")
+            //{
             //    Console.Write("Entre com o valor de depósito incial: ");
             //    valor = double.Parse(Console.ReadLine());
             //    cb = new ContaBancaria(conta, nome, valor);
-            //} else {
+            //} else
+            //{
             //    cb = new ContaBancaria(conta, nome);
             //}
 
@@ -190,12 +198,14 @@ namespace PrimeiroProjeto {
             //Console.Write("Quantos alunos alugarão os quartos (10 quartos disponíveis)? ");
             //aux = int.Parse(Console.ReadLine());
 
-            //while (!(aux > 0 && aux <= 10)){
+            //while (!(aux > 0 && aux <= 10))
+            //{
             //    Console.Write("Tente novamente! Quantos alunos alugarão os quartos (10 quartos disponíveis)? ");
             //    aux = int.Parse(Console.ReadLine());
             //}
 
-            //for (int i = 0; i < aux; i++) {
+            //for (int i = 0; i < aux; i++)
+            //{
             //    Console.WriteLine($"\nHóspede {i + 1}:");
             //    Console.Write("Nome: ");
             //    string nome = Console.ReadLine();
@@ -208,8 +218,10 @@ namespace PrimeiroProjeto {
             //}
 
             //Console.WriteLine("\nQuartos preenchidos! ");
-            //for (int i = 0; i < estudantes.Length; i++) {
-            //    if (estudantes[i] != null) {
+            //for (int i = 0; i < estudantes.Length; i++)
+            //{
+            //    if (estudantes[i] != null)
+            //    {
             //        Console.WriteLine(estudantes[i]);
             //    }
             //}
@@ -217,7 +229,7 @@ namespace PrimeiroProjeto {
             //----------------------------------------------------------------------------------------------------------------
 
             ////Lista de todos os funcionários cadastrados
-            //List<Funcionario> funcionarios = new List<Funcionario>();
+            //List < Funcionario > funcionarios = new List<Funcionario>();
             ////Vetor que armazena o objeto Funcionario, resultado da busca pelo ID
             //Funcionario[] resultado = new Funcionario[1];
             ////Variável aux, para receber a resposta do usuário
@@ -229,17 +241,21 @@ namespace PrimeiroProjeto {
             //aux = int.Parse(Console.ReadLine());
 
             ////For para cadastrar quantos funcionários o usuário quiser
-            //for (int i = 0; i < aux; i++) {
+            //for (int i = 0; i < aux; i++)
+            //{
             //    Console.WriteLine($"\nFuncionário ({i + 1}):");
             //    Console.Write("ID: ");
             //    int id = int.Parse(Console.ReadLine());
             //    //Boolean se torna true, para entrar no while e fazer a verificação
             //    repete = true;
-            //    while (repete) {
+            //    while (repete)
+            //    {
             //        //Falso porque se não entrar no IF de nenhum dos componentes da lista, não existe aquele código, e sai do while
             //        repete = false;
-            //        foreach (Funcionario f in funcionarios) {
-            //            if (f.Id == id) {
+            //        foreach (Funcionario f in funcionarios)
+            //        {
+            //            if (f.Id == id)
+            //            {
             //                repete = true;
             //                Console.Write("ID já existente! Digite outro: ");
             //                id = int.Parse(Console.ReadLine());
@@ -256,24 +272,29 @@ namespace PrimeiroProjeto {
 
             //Console.Write("\nInforme o ID do funcionário que terá o acréscimo de salário: ");
             //aux = int.Parse(Console.ReadLine());
-            //foreach (Funcionario f in funcionarios) {
-            //    if (f.Id == aux) {
+            //foreach (Funcionario f in funcionarios)
+            //{
+            //    if (f.Id == aux)
+            //    {
             //        //Adiciona o objeto completo ao vetor resultado da busca
             //        resultado[0] = f;
             //    }
             //}
             ////Se o vetor possuir objeto, é solicitada a porcentagem para atualização do salário do funcionário
-            //if (resultado[0] != null) {
+            //if (resultado[0] != null)
+            //{
             //    Console.Write("Porcentagem: ");
             //    double porcentagem = double.Parse(Console.ReadLine());
             //    //Posição 0, porque o vetor possui apenas 1 elemento: resultado da busca
             //    resultado[0].AtualizaSalario(porcentagem);
-            //} else {
+            //} else
+            //{
             //    Console.WriteLine("Esse ID não existe!");
             //}
 
             //Console.WriteLine("\nLista atualizada de funcionários: ");
-            //foreach (Funcionario f in funcionarios) {
+            //foreach (Funcionario f in funcionarios)
+            //{
             //    Console.WriteLine(f);
             //}
 
@@ -287,21 +308,27 @@ namespace PrimeiroProjeto {
             //aux = int.Parse(Console.ReadLine());
             //matriz = new int[aux, aux];
 
-            //for (int i = 0; i < matriz.GetLength(0); i++) {
+            //for (int i = 0; i < matriz.GetLength(0); i++)
+            //{
             //    string[] valores = Console.ReadLine().Split(' ');
-            //    for (int j = 0; j < matriz.GetLength(1); j++) {
+            //    for (int j = 0; j < matriz.GetLength(1); j++)
+            //    {
             //        matriz[i, j] = int.Parse(valores[j]);
             //    }
             //}
 
             //Console.WriteLine("\nDiagonal principal:");
-            //for (int i = 0; i < matriz.GetLength(0); i++) {
-            //    Console.Write($"{matriz[i,i]} ");
+            //for (int i = 0; i < matriz.GetLength(0); i++)
+            //{
+            //    Console.Write($"{matriz[i, i]} ");
             //}
 
-            //for (int i = 0; i < matriz.GetLength(0); i++) {
-            //    for (int j = 0; j < matriz.GetLength(1); j++) {
-            //        if (matriz[i, j] < 0) {
+            //for (int i = 0; i < matriz.GetLength(0); i++)
+            //{
+            //    for (int j = 0; j < matriz.GetLength(1); j++)
+            //    {
+            //        if (matriz[i, j] < 0)
+            //        {
             //            negativos++;
             //        }
             //    }
@@ -317,10 +344,12 @@ namespace PrimeiroProjeto {
             int[,] matriz = new int[int.Parse(tamanho[0]), int.Parse(tamanho[1])];
 
             //Preenchimento do vetor
-            for (int i = 0; i < matriz.GetLength(0); i++) {
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
                 //Armazenamento no vetor 'valores', de todos os valores da linha 'i', separando por 'espaço'
                 string[] valores = Console.ReadLine().Split(' ');
-                for (int j = 0; j < matriz.GetLength(1); j++) {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
                     //Preenchimento no vetor dos valores de todas as colunas da linha 'i'
                     matriz[i, j] = int.Parse(valores[j]);
                 }
@@ -330,27 +359,34 @@ namespace PrimeiroProjeto {
             aux = int.Parse(Console.ReadLine());
 
             //For para percorrer todas as linhas da 'matriz'
-            for (int i = 0; i < matriz.GetLength(0); i++) {
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
                 //For para percorrer todas as colunas da 'matriz'
-                for (int j = 0; j < matriz.GetLength(1); j++) {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
                     //Verificação se o valor da 'matriz' na posição, é igual ao número procurado
-                    if (matriz[i, j] == aux) {
+                    if (matriz[i, j] == aux)
+                    {
                         //Informa a posição do valor
                         Console.WriteLine($"\nPosição: {i},{j}");
                         //Verificação se não é a primeira posição da esquerda
-                        if (j > 0) {
+                        if (j > 0)
+                        {
                             Console.WriteLine($"Esquerda: {matriz[i, j - 1]}");
                         }
                         //Verificação se não é a última posição da direita
-                        if (j < matriz.GetLength(1) - 1) {
+                        if (j < matriz.GetLength(1) - 1)
+                        {
                             Console.WriteLine($"Direita: {matriz[i, j + 1]}");
                         }
                         //Verificação se não é a primeira posição de cima
-                        if (i > 0) {
+                        if (i > 0)
+                        {
                             Console.WriteLine($"Acima: {matriz[i - 1, j]}");
                         }
                         //Verificação se não é a última posição de baixo
-                        if (i < matriz.GetLength(0) - 1) {
+                        if (i < matriz.GetLength(0) - 1)
+                        {
                             Console.WriteLine($"Abaixo: {matriz[i + 1, j]}");
                         }
                     }
