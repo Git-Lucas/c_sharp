@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PrimeiroProjeto.Entities_2;
+using PrimeiroProjeto.Entities_2.Enuns;
+using PrimeiroProjeto.EntitiesWork;
+using System;
 using System.Collections.Generic;
 
 namespace PrimeiroProjeto
@@ -337,61 +340,116 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            int aux;
-            //Um vetor será criado, e deve ser preenchido o tamanho da matriz: 2 dimensões
-            string[] tamanho = Console.ReadLine().Split(' ');
-            //O primeiro e o segundo valor são utilizados para a definição das linhas e colunas, respectivamente
-            int[,] matriz = new int[int.Parse(tamanho[0]), int.Parse(tamanho[1])];
+            //int aux;
+            ////Um vetor será criado, e deve ser preenchido o tamanho da matriz: 2 dimensões
+            //string[] tamanho = Console.ReadLine().Split(' ');
+            ////O primeiro e o segundo valor são utilizados para a definição das linhas e colunas, respectivamente
+            //int[,] matriz = new int[int.Parse(tamanho[0]), int.Parse(tamanho[1])];
 
-            //Preenchimento do vetor
-            for (int i = 0; i < matriz.GetLength(0); i++)
+            ////Preenchimento do vetor
+            //for (int i = 0; i < matriz.GetLength(0); i++)
+            //{
+            //    //Armazenamento no vetor 'valores', de todos os valores da linha 'i', separando por 'espaço'
+            //    string[] valores = Console.ReadLine().Split(' ');
+            //    for (int j = 0; j < matriz.GetLength(1); j++)
+            //    {
+            //        //Preenchimento no vetor dos valores de todas as colunas da linha 'i'
+            //        matriz[i, j] = int.Parse(valores[j]);
+            //    }
+            //}
+
+            //Console.Write("\nNúmero a ser procurado: ");
+            //aux = int.Parse(Console.ReadLine());
+
+            ////For para percorrer todas as linhas da 'matriz'
+            //for (int i = 0; i < matriz.GetLength(0); i++)
+            //{
+            //    //For para percorrer todas as colunas da 'matriz'
+            //    for (int j = 0; j < matriz.GetLength(1); j++)
+            //    {
+            //        //Verificação se o valor da 'matriz' na posição, é igual ao número procurado
+            //        if (matriz[i, j] == aux)
+            //        {
+            //            //Informa a posição do valor
+            //            Console.WriteLine($"\nPosição: {i},{j}");
+            //            //Verificação se não é a primeira posição da esquerda
+            //            if (j > 0)
+            //            {
+            //                Console.WriteLine($"Esquerda: {matriz[i, j - 1]}");
+            //            }
+            //            //Verificação se não é a última posição da direita
+            //            if (j < matriz.GetLength(1) - 1)
+            //            {
+            //                Console.WriteLine($"Direita: {matriz[i, j + 1]}");
+            //            }
+            //            //Verificação se não é a primeira posição de cima
+            //            if (i > 0)
+            //            {
+            //                Console.WriteLine($"Acima: {matriz[i - 1, j]}");
+            //            }
+            //            //Verificação se não é a última posição de baixo
+            //            if (i < matriz.GetLength(0) - 1)
+            //            {
+            //                Console.WriteLine($"Abaixo: {matriz[i + 1, j]}");
+            //            }
+            //        }
+            //    }
+            //}
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            //Declaração das variáveis
+            string nameDepartment;
+            string nameWorker;
+            WorkerLevel level;
+            double baseSalary;
+            int resposta;
+            DateTime date;
+            double valuePerHour;
+            int hours;
+            string period;
+
+            //Entrada e leitura de dados Department
+            Console.Write("Enter department's name: ");
+            nameDepartment = Console.ReadLine();
+            //Instancia Department
+            Department department = new Department(nameDepartment);
+
+            //Entrada e leitura de dados Worker
+            Console.Write("\n\nEnter worker data:\nName: ");
+            nameWorker = Console.ReadLine();
+            Console.Write("Level (Junior / MidLevel / Senior): ");
+            level = Enum.Parse<WorkerLevel>(Console.ReadLine());
+            Console.Write("Base salary: ");
+            baseSalary = double.Parse(Console.ReadLine());
+            //Instancia Worker
+            Worker worker = new Worker(nameWorker, level, baseSalary, department);
+
+            //Entrada e leitura do número de contratos que serão cadastrados
+            Console.Write("\n\nHow many contracts to this worker? ");
+            resposta = int.Parse(Console.ReadLine());
+            for (int i = 0; i < resposta; i++)
             {
-                //Armazenamento no vetor 'valores', de todos os valores da linha 'i', separando por 'espaço'
-                string[] valores = Console.ReadLine().Split(' ');
-                for (int j = 0; j < matriz.GetLength(1); j++)
-                {
-                    //Preenchimento no vetor dos valores de todas as colunas da linha 'i'
-                    matriz[i, j] = int.Parse(valores[j]);
-                }
+                //Entrada e leitura de dados HourContract
+                Console.Write($"\nEnter #{i + 1} contract data:\nDate (DD/MM/YYYY): ");
+                date = DateTime.Parse(Console.ReadLine());
+                Console.Write("Value per hour: ");
+                valuePerHour = double.Parse(Console.ReadLine());
+                Console.Write("Duration (hours): ");
+                hours = int.Parse(Console.ReadLine());
+                //Instancia HourContract
+                HourContract contract = new HourContract(date, valuePerHour, hours);
+                //Adiciona o objeto HourContract ao objeto Worker
+                worker.AddContract(contract);
             }
 
-            Console.Write("\nNúmero a ser procurado: ");
-            aux = int.Parse(Console.ReadLine());
-
-            //For para percorrer todas as linhas da 'matriz'
-            for (int i = 0; i < matriz.GetLength(0); i++)
-            {
-                //For para percorrer todas as colunas da 'matriz'
-                for (int j = 0; j < matriz.GetLength(1); j++)
-                {
-                    //Verificação se o valor da 'matriz' na posição, é igual ao número procurado
-                    if (matriz[i, j] == aux)
-                    {
-                        //Informa a posição do valor
-                        Console.WriteLine($"\nPosição: {i},{j}");
-                        //Verificação se não é a primeira posição da esquerda
-                        if (j > 0)
-                        {
-                            Console.WriteLine($"Esquerda: {matriz[i, j - 1]}");
-                        }
-                        //Verificação se não é a última posição da direita
-                        if (j < matriz.GetLength(1) - 1)
-                        {
-                            Console.WriteLine($"Direita: {matriz[i, j + 1]}");
-                        }
-                        //Verificação se não é a primeira posição de cima
-                        if (i > 0)
-                        {
-                            Console.WriteLine($"Acima: {matriz[i - 1, j]}");
-                        }
-                        //Verificação se não é a última posição de baixo
-                        if (i < matriz.GetLength(0) - 1)
-                        {
-                            Console.WriteLine($"Abaixo: {matriz[i + 1, j]}");
-                        }
-                    }
-                }
-            }
+            //Entrada e leitura do período a ser consultado
+            Console.Write("\n\nEnter month and year to calculate income (MM/YYYY): ");
+            period = Console.ReadLine();
+            //Exibição dos dados do objeto Worker, e do faturamento no período
+            Console.Write($"Name: {worker.Name}" +
+                $"\nDepartment: {worker.Department.Name}" +
+                $"\nIncome for {period}: R$ {worker.Income(int.Parse(period.Substring(3)), int.Parse(period.Substring(0, 2))).ToString("F2")}");
         }
     }
 }
