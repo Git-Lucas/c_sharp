@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using PrimeiroProjeto.EntitiesSocialMedia;
 using PrimeiroProjeto.EntitiesStore;
 using PrimeiroProjeto.EntitiesStore.Enums;
+using PrimeiroProjeto.EntitiesEmployees;
+using PrimeiroProjeto.EntitiesProducts;
 
 namespace PrimeiroProjeto
 {
@@ -472,56 +474,150 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            //Declarando as variáveis
-            string nameClient;
-            string emailClient;
-            DateTime birthDate;
-            OrderStatus status;
-            int quantityItems;
+            ////Declarando as variáveis
+            //string nameClient;
+            //string emailClient;
+            //DateTime birthDate;
+            //OrderStatus status;
+            //int quantityItems;
 
-            //Entrada e leitura de dados Client
-            Console.Write("Enter client data:" +
-                "\nName: ");
-            nameClient = Console.ReadLine();
-            Console.Write("Email: ");
-            emailClient = Console.ReadLine();
-            Console.Write("Birth date (DD/MM/YYYY): ");
-            birthDate = DateTime.Parse(Console.ReadLine());
-            //Instancia Client
-            Client client = new Client(nameClient, emailClient, birthDate);
+            ////Entrada e leitura de dados Client
+            //Console.Write("Enter client data:" +
+            //    "\nName: ");
+            //nameClient = Console.ReadLine();
+            //Console.Write("Email: ");
+            //emailClient = Console.ReadLine();
+            //Console.Write("Birth date (DD/MM/YYYY): ");
+            //birthDate = DateTime.Parse(Console.ReadLine());
+            ////Instancia Client
+            //Client client = new Client(nameClient, emailClient, birthDate);
 
-            //Entrada e leitura dos dados Order
-            Console.Write("\nEnter order data:" +
-                "\nStatus: ");
-            status = Enum.Parse<OrderStatus>(Console.ReadLine());
-            //Instancia Order, com data atual, status definido pelo usuário, e objeto Client instanciado
-            Order order = new Order(DateTime.Now, status, client);
+            ////Entrada e leitura dos dados Order
+            //Console.Write("\nEnter order data:" +
+            //    "\nStatus: ");
+            //status = Enum.Parse<OrderStatus>(Console.ReadLine());
+            ////Instancia Order, com data atual, status definido pelo usuário, e objeto Client instanciado
+            //Order order = new Order(DateTime.Now, status, client);
 
-            //Entrada e leitura da quantidade de itens que serão comprados
-            Console.Write("How many items to this order? ");
-            quantityItems = int.Parse(Console.ReadLine());
-            for (int i = 0; i < quantityItems; i++)
+            ////Entrada e leitura da quantidade de itens que serão comprados
+            //Console.Write("How many items to this order? ");
+            //quantityItems = int.Parse(Console.ReadLine());
+            //for (int i = 0; i < quantityItems; i++)
+            //{
+            //    //Entrada e leitura dos dados Product
+            //    Console.Write($"\nEnter #{i + 1} item data:" +
+            //        $"\nProduct name: ");
+            //    string productName = Console.ReadLine();
+            //    Console.Write("Product price: ");
+            //    double productPrice = double.Parse(Console.ReadLine());
+            //    //Instancia Product
+            //    Product product = new Product(productName, productPrice);
+
+            //    //Entrada e leitura da quantidade do produto instanciado
+            //    Console.Write("Quantity: ");
+            //    int quantityProduct = int.Parse(Console.ReadLine());
+            //    //Instancia OrderItem com a quantidade e o produto instanciado
+            //    OrderItem orderItem = new OrderItem(quantityProduct, product);
+            //    //Adiciona o objeto OrderItem à lista na classe Order
+            //    order.AddItem(orderItem);
+            //}
+
+            ////Imprime ToString Order
+            //Console.Write($"\n{order}");
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            ////Declaração de variáveis
+            //int numberEmployees;
+            //List<Employee> employees = new List<Employee>();
+
+            ////Entrada e leitura da quantidade de objetos Employees que são cadastrados na lista
+            //Console.Write("Enter the number of employees: ");
+            //numberEmployees = int.Parse(Console.ReadLine());
+
+            //for (int i = 0; i < numberEmployees; i++)
+            //{
+            //    //Leitura e entrada dos dados gerais do objeto Employee
+            //    Console.Write($"\nEmployee #{i + 1} data:" +
+            //        $"\nOursourced (y/n)? ");
+            //    char resposta = char.Parse(Console.ReadLine().ToUpper());
+            //    Console.Write("Name: ");
+            //    string name = Console.ReadLine();
+            //    Console.Write("Hours: ");
+            //    int hours = int.Parse(Console.ReadLine());
+            //    Console.Write("Value per hour: ");
+            //    double valuePerHour = double.Parse(Console.ReadLine());
+            //    //Verifica se o Employee é Outsourced
+            //    if (resposta == 'Y')
+            //    {
+            //        //Leitura e entrada do dado específico do OutsourcedEmployee
+            //        Console.Write("Additional charge: ");
+            //        double additionalCharge = double.Parse(Console.ReadLine());
+            //        //Adiciona na lista do tipo Employee, um objeto do tipo OutsourcedEmployee (Upcasting)
+            //        employees.Add(new OutsourcedEmployee(name, hours, valuePerHour, additionalCharge));
+            //    } else
+            //    {
+            //        //Adiciona na lista do tipo Employee, um objeto do tipo Employee
+            //        employees.Add(new Employee(name, hours, valuePerHour));
+            //    }
+            //}
+
+            ////Apresentação dos dados da lista
+            //Console.WriteLine("\n-----------------------------------------------------------" +
+            //    "\n\nPAYMENTS: ");
+            //foreach (Employee e in employees)
+            //{
+            //    Console.WriteLine(e);
+            //}
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            //Declaração de variáveis auxiliares e declaração e instanciação da lista de Procucts (o EntitiesProducts antes do Product, se deve ao fato de possui outra classe Product em outra pasta)
+            int numeroProdutos;
+            List<EntitiesProducts.Product> products = new List<EntitiesProducts.Product>();
+
+            Console.Write("Enter the number of products: ");
+            numeroProdutos = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numeroProdutos; i++)
             {
-                //Entrada e leitura dos dados Product
-                Console.Write($"\nEnter #{i + 1} item data:" +
-                    $"\nProduct name: ");
-                string productName = Console.ReadLine();
-                Console.Write("Product price: ");
-                double productPrice = double.Parse(Console.ReadLine());
-                //Instancia Product
-                Product product = new Product(productName, productPrice);
-
-                //Entrada e leitura da quantidade do produto instanciado
-                Console.Write("Quantity: ");
-                int quantityProduct = int.Parse(Console.ReadLine());
-                //Instancia OrderItem com a quantidade e o produto instanciado
-                OrderItem orderItem = new OrderItem(quantityProduct, product);
-                //Adiciona o objeto OrderItem à lista na classe Order
-                order.AddItem(orderItem);
+                //Leitura e entrada dos dados gerais do objeto Product
+                Console.Write($"\nProduct #{i + 1} data: " +
+                    $"\nCommom, used or imported (c/u/i)? ");
+                char resposta = char.Parse(Console.ReadLine().ToUpper());
+                Console.Write("Name: ");
+                string name = Console.ReadLine();
+                Console.Write("Price: ");
+                double price = double.Parse(Console.ReadLine());
+                if (resposta == 'U')
+                {
+                    //Leitura e entrada de dados específicos UsedProduct
+                    Console.Write("Manufacture date (DD/MM/YYYY): ");
+                    DateTime manufactureDate = DateTime.Parse(Console.ReadLine());
+                    //Adiciona na lista de Products, no tipo UsedProduct
+                    products.Add(new UsedProduct(name, price, manufactureDate));
+                }
+                else if (resposta == 'I')
+                {
+                    //Leitura e entrada de dados específicos ImportedProduct
+                    Console.Write("Customs fee: ");
+                    double customsFee = double.Parse(Console.ReadLine());
+                    //Adiciona na lista de Products, no tipo ImportedProduct
+                    products.Add(new ImportedProduct(name, price, customsFee));
+                } else
+                {
+                    //Adiciona na lista de Products, no tipo Product
+                    products.Add(new EntitiesProducts.Product(name, price));
+                }
             }
 
-            //Imprime ToString Order
-            Console.Write($"\n{order}");
+            //Apresenta os dados da lista Product, chamando a função PriceTag, sobrescrita nas classes UsedProduct e ImportedProduct (polimorfismo: apresentando os dados conforme especificação na classe)
+            Console.WriteLine("\n-----------------------------------------------" +
+                "\nPRICE TAGS:");
+            foreach(EntitiesProducts.Product p in products)
+            {
+                Console.WriteLine(p.PriceTag());
+            }
         }
     }
 }
