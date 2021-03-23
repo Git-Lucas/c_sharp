@@ -4,9 +4,9 @@ namespace PrimeiroProjeto
 {
     class Triangulo
     {
-        public double A;
-        public double B;
-        public double C;
+        public double A { get; set; }
+        public double B { get; set; }
+        public double C { get; set; }
 
         public double Area()
         {

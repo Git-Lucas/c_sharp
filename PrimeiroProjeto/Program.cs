@@ -1,9 +1,10 @@
 ﻿using PrimeiroProjeto.EntitiesWork;
 using PrimeiroProjeto.EntitiesWork.Enums;
-using PrimeiroProjeto.EntitiesWork;
 using System;
 using System.Collections.Generic;
 using PrimeiroProjeto.EntitiesSocialMedia;
+using PrimeiroProjeto.EntitiesStore;
+using PrimeiroProjeto.EntitiesStore.Enums;
 
 namespace PrimeiroProjeto
 {
@@ -454,20 +455,60 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            Post post1 = new Post(DateTime.Parse("21/06/2018 13:05:44"), "Traveling to New Zeland", "I'm going to visit this wonderful contry!", 12);
-            Comment comment1 = new Comment("Have a nice trip");
-            Comment comment2 = new Comment("Wow that's awesome!");
-            post1.AddComment(comment1);
-            post1.AddComment(comment2);
+            //Post post1 = new Post(DateTime.Parse("21/06/2018 13:05:44"), "Traveling to New Zeland", "I'm going to visit this wonderful contry!", 12);
+            //Comment comment1 = new Comment("Have a nice trip");
+            //Comment comment2 = new Comment("Wow that's awesome!");
+            //post1.AddComment(comment1);
+            //post1.AddComment(comment2);
 
-            Post post2 = new Post(DateTime.Parse("28/07/2018 23:14:19"), "Good night guys", "See you tomorrow", 5);
-            Comment comment3 = new Comment("Good night");
-            Comment comment4 = new Comment("Maybe the Force be with you");
-            post2.AddComment(comment1);
-            post2.AddComment(comment2);
+            //Post post2 = new Post(DateTime.Parse("28/07/2018 23:14:19"), "Good night guys", "See you tomorrow", 5);
+            //Comment comment3 = new Comment("Good night");
+            //Comment comment4 = new Comment("Maybe the Force be with you");
+            //post2.AddComment(comment1);
+            //post2.AddComment(comment2);
 
-            Console.WriteLine(post1);
-            Console.WriteLine(post2);
+            //Console.WriteLine(post1);
+            //Console.WriteLine(post2);
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            string nameClient;
+            string emailClient;
+            DateTime birthDate;
+            OrderStatus status;
+            int quantityItems;
+
+            Console.Write("Enter client data:" +
+                "\nName: ");
+            nameClient = Console.ReadLine();
+            Console.Write("Email: ");
+            emailClient = Console.ReadLine();
+            Console.Write("Birth date (DD/MM/YYYY): ");
+            birthDate = DateTime.Parse(Console.ReadLine());
+            Client client = new Client(nameClient, emailClient, birthDate);
+
+            Console.Write("\nEnter order data:" +
+                "\nStatus: ");
+            status = Enum.Parse<OrderStatus>(Console.ReadLine());
+            Order order = new Order(DateTime.Now, status, client);
+
+            Console.Write("How many items to this order? ");
+            quantityItems = int.Parse(Console.ReadLine());
+            for (int i = 0; i < quantityItems; i++)
+            {
+                Console.Write($"\nEnter #{i + 1} item data:" +
+                    $"\nProduct name: ");
+                string productName = Console.ReadLine();
+                Console.Write("Product price: ");
+                double productPrice = double.Parse(Console.ReadLine());
+                Product product = new Product(productName, productPrice);
+                Console.Write("Quantity: ");
+                int quantityProduct = int.Parse(Console.ReadLine());
+                OrderItem orderItem = new OrderItem(quantityProduct, product);
+                order.AddItem(orderItem);
+            }
+
+            Console.Write($"\n{order}");
         }
     }
 }
