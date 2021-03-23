@@ -472,12 +472,14 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
+            //Declarando as variáveis
             string nameClient;
             string emailClient;
             DateTime birthDate;
             OrderStatus status;
             int quantityItems;
 
+            //Entrada e leitura de dados Client
             Console.Write("Enter client data:" +
                 "\nName: ");
             nameClient = Console.ReadLine();
@@ -485,29 +487,40 @@ namespace PrimeiroProjeto
             emailClient = Console.ReadLine();
             Console.Write("Birth date (DD/MM/YYYY): ");
             birthDate = DateTime.Parse(Console.ReadLine());
+            //Instancia Client
             Client client = new Client(nameClient, emailClient, birthDate);
 
+            //Entrada e leitura dos dados Order
             Console.Write("\nEnter order data:" +
                 "\nStatus: ");
             status = Enum.Parse<OrderStatus>(Console.ReadLine());
+            //Instancia Order, com data atual, status definido pelo usuário, e objeto Client instanciado
             Order order = new Order(DateTime.Now, status, client);
 
+            //Entrada e leitura da quantidade de itens que serão comprados
             Console.Write("How many items to this order? ");
             quantityItems = int.Parse(Console.ReadLine());
             for (int i = 0; i < quantityItems; i++)
             {
+                //Entrada e leitura dos dados Product
                 Console.Write($"\nEnter #{i + 1} item data:" +
                     $"\nProduct name: ");
                 string productName = Console.ReadLine();
                 Console.Write("Product price: ");
                 double productPrice = double.Parse(Console.ReadLine());
+                //Instancia Product
                 Product product = new Product(productName, productPrice);
+
+                //Entrada e leitura da quantidade do produto instanciado
                 Console.Write("Quantity: ");
                 int quantityProduct = int.Parse(Console.ReadLine());
+                //Instancia OrderItem com a quantidade e o produto instanciado
                 OrderItem orderItem = new OrderItem(quantityProduct, product);
+                //Adiciona o objeto OrderItem à lista na classe Order
                 order.AddItem(orderItem);
             }
 
+            //Imprime ToString Order
             Console.Write($"\n{order}");
         }
     }
