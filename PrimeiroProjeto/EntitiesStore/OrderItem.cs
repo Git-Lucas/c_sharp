@@ -10,12 +10,14 @@ namespace PrimeiroProjeto.EntitiesStore
         public double Price { get; private set; }
         public Product Product { get; set; }
 
+        //Price não participa do construtor, pois esta variável é preenchida apenas na função SubTotal()
         public OrderItem(int quantidade, Product product)
         {
             Quantity = quantidade;
             Product = product;
         }
 
+        //Calcula o subtotal de cada produto, e armazena em Price
         public double SubTotal()
         {
             Price = 0;

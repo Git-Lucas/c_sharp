@@ -19,16 +19,19 @@ namespace PrimeiroProjeto.EntitiesStore
             Client = client;
         }
 
+        //Adiciona o objeto OrderItem à lista OrderItems
         public void AddItem(OrderItem item)
         {
             OrderItems.Add(item);
         }
 
+        //Remove o objeto OrderItem da lista OrderItems
         public void RemoveItem(OrderItem item)
         {
             OrderItems.Remove(item);
         }
 
+        //Calcula o valor total do pedido
         public double Total()
         {
             double total = 0;
@@ -41,6 +44,7 @@ namespace PrimeiroProjeto.EntitiesStore
             return total;
         }
 
+        //Imprime as informações do pedido, segundo padrão do exercício
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
