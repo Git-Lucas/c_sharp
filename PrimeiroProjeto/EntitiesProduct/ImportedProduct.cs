@@ -16,7 +16,12 @@ namespace PrimeiroProjeto.EntitiesProducts
 
         public override string PriceTag()
         {
-            return base.PriceTag() + $" (Customs fee: R${CustomsFee:F2})";
+            return $"{Name} R${TotalPrice():F2} (Customs fee: R${CustomsFee:F2})";
+        }
+
+        public double TotalPrice()
+        {
+            return Price + CustomsFee;
         }
     }
 }
