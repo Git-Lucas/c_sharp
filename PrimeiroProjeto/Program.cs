@@ -7,6 +7,7 @@ using PrimeiroProjeto.EntitiesStore;
 using PrimeiroProjeto.EntitiesStore.Enums;
 using PrimeiroProjeto.EntitiesEmployees;
 using PrimeiroProjeto.EntitiesProducts;
+using PrimeiroProjeto.EntitiesPayer;
 
 namespace PrimeiroProjeto
 {
@@ -572,52 +573,103 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            //Declaração de variáveis auxiliares e declaração e instanciação da lista de Procucts (o EntitiesProducts antes do Product, se deve ao fato de possui outra classe Product em outra pasta)
-            int numeroProdutos;
-            List<EntitiesProducts.Product> products = new List<EntitiesProducts.Product>();
+            ////Declaração de variáveis auxiliares e declaração e instanciação da lista de Procucts (o EntitiesProducts antes do Product, se deve ao fato de possui outra classe Product em outra pasta)
+            //int numeroProdutos;
+            //List<EntitiesProducts.Product> products = new List<EntitiesProducts.Product>();
 
-            Console.Write("Enter the number of products: ");
-            numeroProdutos = int.Parse(Console.ReadLine());
+            //Console.Write("Enter the number of products: ");
+            //numeroProdutos = int.Parse(Console.ReadLine());
 
-            for (int i = 0; i < numeroProdutos; i++)
+            //for (int i = 0; i < numeroProdutos; i++)
+            //{
+            //    //Leitura e entrada dos dados gerais do objeto Product
+            //    Console.Write($"\nProduct #{i + 1} data: " +
+            //        $"\nCommom, used or imported (c/u/i)? ");
+            //    char resposta = char.Parse(Console.ReadLine().ToUpper());
+            //    Console.Write("Name: ");
+            //    string name = Console.ReadLine();
+            //    Console.Write("Price: ");
+            //    double price = double.Parse(Console.ReadLine());
+            //    if (resposta == 'U')
+            //    {
+            //        //Leitura e entrada de dados específicos UsedProduct
+            //        Console.Write("Manufacture date (DD/MM/YYYY): ");
+            //        DateTime manufactureDate = DateTime.Parse(Console.ReadLine());
+            //        //Adiciona na lista de Products, no tipo UsedProduct
+            //        products.Add(new UsedProduct(name, price, manufactureDate));
+            //    }
+            //    else if (resposta == 'I')
+            //    {
+            //        //Leitura e entrada de dados específicos ImportedProduct
+            //        Console.Write("Customs fee: ");
+            //        double customsFee = double.Parse(Console.ReadLine());
+            //        //Adiciona na lista de Products, no tipo ImportedProduct
+            //        products.Add(new ImportedProduct(name, price, customsFee));
+            //    } else
+            //    {
+            //        //Adiciona na lista de Products, no tipo Product
+            //        products.Add(new EntitiesProducts.Product(name, price));
+            //    }
+            //}
+
+            ////Apresenta os dados da lista Product, chamando a função PriceTag, sobrescrita nas classes UsedProduct e ImportedProduct (polimorfismo: apresentando os dados conforme especificação na classe)
+            //Console.WriteLine("\n-----------------------------------------------" +
+            //    "\nPRICE TAGS:");
+            //foreach(EntitiesProducts.Product p in products)
+            //{
+            //    Console.WriteLine(p.PriceTag());
+            //}
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            //Declaração e instanciação das variáveis
+            int numberPayers;
+            List<Payer> payers = new List<Payer>();
+            double totalTaxes = 0;
+
+            //Leitura e entrada do número de objetos que herdam de Payer que serão cadastrados
+            Console.Write("Enter the number of tax payers: ");
+            numberPayers = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numberPayers; i++)
             {
-                //Leitura e entrada dos dados gerais do objeto Product
-                Console.Write($"\nProduct #{i + 1} data: " +
-                    $"\nCommom, used or imported (c/u/i)? ");
+                //Leitura e entrada dos dados comuns a todas as subclasses de Payer
+                Console.Write($"\nTax  payer #{i + 1} data:" +
+                    $"\nIndividual or company (i/c)? ");
                 char resposta = char.Parse(Console.ReadLine().ToUpper());
                 Console.Write("Name: ");
                 string name = Console.ReadLine();
-                Console.Write("Price: ");
-                double price = double.Parse(Console.ReadLine());
-                if (resposta == 'U')
+                Console.Write("Anual income: ");
+                double anualIncome = double.Parse(Console.ReadLine());
+
+                //Leitura e entrada dos dados de IndividualPayer, e adição deste objeto à lista de objetos Payer
+                if (resposta == 'I')
                 {
-                    //Leitura e entrada de dados específicos UsedProduct
-                    Console.Write("Manufacture date (DD/MM/YYYY): ");
-                    DateTime manufactureDate = DateTime.Parse(Console.ReadLine());
-                    //Adiciona na lista de Products, no tipo UsedProduct
-                    products.Add(new UsedProduct(name, price, manufactureDate));
+                    Console.Write("Health expenditures: ");
+                    double healthExpenditures = double.Parse(Console.ReadLine());
+                    payers.Add(new IndividualPayer(name, anualIncome, healthExpenditures));
                 }
-                else if (resposta == 'I')
+                //Leitura e entrada dos dados de CompanyPayer, e adição deste objeto à lista de objetos Payer
+                else
                 {
-                    //Leitura e entrada de dados específicos ImportedProduct
-                    Console.Write("Customs fee: ");
-                    double customsFee = double.Parse(Console.ReadLine());
-                    //Adiciona na lista de Products, no tipo ImportedProduct
-                    products.Add(new ImportedProduct(name, price, customsFee));
-                } else
-                {
-                    //Adiciona na lista de Products, no tipo Product
-                    products.Add(new EntitiesProducts.Product(name, price));
+                    Console.Write("Number of employees: ");
+                    int numberEmployees = int.Parse(Console.ReadLine());
+                    payers.Add(new CompanyPayer(name, anualIncome, numberEmployees));
                 }
             }
 
-            //Apresenta os dados da lista Product, chamando a função PriceTag, sobrescrita nas classes UsedProduct e ImportedProduct (polimorfismo: apresentando os dados conforme especificação na classe)
-            Console.WriteLine("\n-----------------------------------------------" +
-                "\nPRICE TAGS:");
-            foreach(EntitiesProducts.Product p in products)
+            //Apresentação dos dados
+            Console.WriteLine("\n--------------------------------------------------" +
+                "\nTAXES PAID:");
+
+            //No mesmo foreach que apresenta o valor de impostos pagos por cada Payer, a variável totalTaxes é incrementada
+            foreach(Payer p in payers)
             {
-                Console.WriteLine(p.PriceTag());
+                Console.WriteLine($"{p.Name}: R${p.CalculatesTaxes():F2}");
+                totalTaxes += p.CalculatesTaxes();
             }
+
+            Console.WriteLine($"\nTOTAL TAXES: R${totalTaxes:F2}");
         }
     }
 }

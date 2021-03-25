@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PrimeiroProjeto.EntitiesStore.Enums
 {
-    enum OrderStatus : int
+    enum OrderStatus
     {
         PendingPayment,
         Processing,

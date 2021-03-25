@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PrimeiroProjeto.EntitiesWork.Enums
 {
-    enum WorkerLevel : int
+    enum WorkerLevel
     {
         Junior,
         Mid_Level,
