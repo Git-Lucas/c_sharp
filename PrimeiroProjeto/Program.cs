@@ -677,11 +677,13 @@ namespace PrimeiroProjeto
 
             try
             {
+                //Declaração de variáveis
                 int number;
                 string holder;
                 double initialDeposit;
                 double withdrawLimit;
 
+                //Leitura e entrada dos dados para instanciação do objeto Account, mais o valor inicial de depósito
                 Console.Write("Enter account data" +
                     "\nNumber: ");
                 number = int.Parse(Console.ReadLine());
@@ -692,17 +694,24 @@ namespace PrimeiroProjeto
                 Console.Write("Withdraw limit: ");
                 withdrawLimit = double.Parse(Console.ReadLine());
 
+                //Instanciação do objeto Account
                 Account account = new Account(number, holder, withdrawLimit);
+                //Depósito inicial na conta, através do método Deposit da classe Account
                 account.Deposit(initialDeposit);
 
+                //Leitura e entrada do valor para saque
                 Console.Write("\nEnter amount for withdraw: ");
+                //Saque através do método de saque
                 account.Withdraw(double.Parse(Console.ReadLine()));
+                //Apresentação do valor atualizado de saldo
                 Console.WriteLine($"New balance: {account.Balance}");
             } catch(DomainException e)
             {
+                //Apresentação da mensagem de erro da ApplicationException (exceções da aplicação), instanciada na classe Account, no método Withdraw (por isso "WITHDRAW error:")
                 Console.WriteLine($"Withdraw error: {e.Message}");
             } catch(Exception e)
             {
+                //Apresentação da mensagem de erro da Exception (exceções de sistema), em qualquer erro possível no bloco de código dentro de "try" (entrada de dados inválida por exemplo)
                 Console.WriteLine($"Unexpected error: {e.Message}");
             }            
         }
