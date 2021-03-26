@@ -8,6 +8,8 @@ using PrimeiroProjeto.EntitiesStore.Enums;
 using PrimeiroProjeto.EntitiesEmployees;
 using PrimeiroProjeto.EntitiesProducts;
 using PrimeiroProjeto.EntitiesPayer;
+using PrimeiroProjeto.EntitiesAccount;
+using PrimeiroProjeto.EntitiesAccount.Exceptions;
 
 namespace PrimeiroProjeto
 {
@@ -622,54 +624,87 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            //Declaração e instanciação das variáveis
-            int numberPayers;
-            List<Payer> payers = new List<Payer>();
-            double totalTaxes = 0;
+            ////Declaração e instanciação das variáveis
+            //int numberPayers;
+            //List<Payer> payers = new List<Payer>();
+            //double totalTaxes = 0;
 
-            //Leitura e entrada do número de objetos que herdam de Payer que serão cadastrados
-            Console.Write("Enter the number of tax payers: ");
-            numberPayers = int.Parse(Console.ReadLine());
+            ////Leitura e entrada do número de objetos que herdam de Payer que serão cadastrados
+            //Console.Write("Enter the number of tax payers: ");
+            //numberPayers = int.Parse(Console.ReadLine());
 
-            for (int i = 0; i < numberPayers; i++)
+            //for (int i = 0; i < numberPayers; i++)
+            //{
+            //    //Leitura e entrada dos dados comuns a todas as subclasses de Payer
+            //    Console.Write($"\nTax  payer #{i + 1} data:" +
+            //        $"\nIndividual or company (i/c)? ");
+            //    char resposta = char.Parse(Console.ReadLine().ToUpper());
+            //    Console.Write("Name: ");
+            //    string name = Console.ReadLine();
+            //    Console.Write("Anual income: ");
+            //    double anualIncome = double.Parse(Console.ReadLine());
+
+            //    //Leitura e entrada dos dados de IndividualPayer, e adição deste objeto à lista de objetos Payer
+            //    if (resposta == 'I')
+            //    {
+            //        Console.Write("Health expenditures: ");
+            //        double healthExpenditures = double.Parse(Console.ReadLine());
+            //        payers.Add(new IndividualPayer(name, anualIncome, healthExpenditures));
+            //    }
+            //    //Leitura e entrada dos dados de CompanyPayer, e adição deste objeto à lista de objetos Payer
+            //    else
+            //    {
+            //        Console.Write("Number of employees: ");
+            //        int numberEmployees = int.Parse(Console.ReadLine());
+            //        payers.Add(new CompanyPayer(name, anualIncome, numberEmployees));
+            //    }
+            //}
+
+            ////Apresentação dos dados
+            //Console.WriteLine("\n--------------------------------------------------" +
+            //    "\n\nTAXES PAID:");
+
+            ////No mesmo foreach que apresenta o valor de impostos pagos por cada Payer, a variável totalTaxes é incrementada
+            //foreach (Payer p in payers)
+            //{
+            //    Console.WriteLine($"{p.Name}: R${p.CalculatesTaxes():F2}");
+            //    totalTaxes += p.CalculatesTaxes();
+            //}
+
+            //Console.WriteLine($"\nTOTAL TAXES: R${totalTaxes:F2}");
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            try
             {
-                //Leitura e entrada dos dados comuns a todas as subclasses de Payer
-                Console.Write($"\nTax  payer #{i + 1} data:" +
-                    $"\nIndividual or company (i/c)? ");
-                char resposta = char.Parse(Console.ReadLine().ToUpper());
-                Console.Write("Name: ");
-                string name = Console.ReadLine();
-                Console.Write("Anual income: ");
-                double anualIncome = double.Parse(Console.ReadLine());
+                int number;
+                string holder;
+                double initialDeposit;
+                double withdrawLimit;
 
-                //Leitura e entrada dos dados de IndividualPayer, e adição deste objeto à lista de objetos Payer
-                if (resposta == 'I')
-                {
-                    Console.Write("Health expenditures: ");
-                    double healthExpenditures = double.Parse(Console.ReadLine());
-                    payers.Add(new IndividualPayer(name, anualIncome, healthExpenditures));
-                }
-                //Leitura e entrada dos dados de CompanyPayer, e adição deste objeto à lista de objetos Payer
-                else
-                {
-                    Console.Write("Number of employees: ");
-                    int numberEmployees = int.Parse(Console.ReadLine());
-                    payers.Add(new CompanyPayer(name, anualIncome, numberEmployees));
-                }
-            }
+                Console.Write("Enter account data" +
+                    "\nNumber: ");
+                number = int.Parse(Console.ReadLine());
+                Console.Write("Holder: ");
+                holder = Console.ReadLine();
+                Console.Write("Initial balance: ");
+                initialDeposit = double.Parse(Console.ReadLine());
+                Console.Write("Withdraw limit: ");
+                withdrawLimit = double.Parse(Console.ReadLine());
 
-            //Apresentação dos dados
-            Console.WriteLine("\n--------------------------------------------------" +
-                "\nTAXES PAID:");
+                Account account = new Account(number, holder, withdrawLimit);
+                account.Deposit(initialDeposit);
 
-            //No mesmo foreach que apresenta o valor de impostos pagos por cada Payer, a variável totalTaxes é incrementada
-            foreach(Payer p in payers)
+                Console.Write("\nEnter amount for withdraw: ");
+                account.Withdraw(double.Parse(Console.ReadLine()));
+                Console.WriteLine($"New balance: {account.Balance}");
+            } catch(DomainException e)
             {
-                Console.WriteLine($"{p.Name}: R${p.CalculatesTaxes():F2}");
-                totalTaxes += p.CalculatesTaxes();
-            }
-
-            Console.WriteLine($"\nTOTAL TAXES: R${totalTaxes:F2}");
+                Console.WriteLine($"Withdraw error: {e.Message}");
+            } catch(Exception e)
+            {
+                Console.WriteLine($"Unexpected error: {e.Message}");
+            }            
         }
     }
 }
