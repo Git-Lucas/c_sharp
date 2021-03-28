@@ -728,7 +728,7 @@ namespace PrimeiroProjeto
             //Leitura e entrada do caminho completo do arquivo de entrada (caminho + nome e extensão do arquivo)
             Console.Write("File path (complete): ");
             sourcePath = Console.ReadLine();
-            //A pasta destino do arquivo de saída será criada, a partir da pasta onde se encontra o arquivo de entrada
+            //A pasta destino do arquivo de saída será armazenada como string, a partir da pasta onde se encontra o arquivo de entrada
             targetPath = @$"{Path.GetDirectoryName(sourcePath)}\out";
 
             //Try Catch a partir do momento que começa a manipulação dos arquivos
@@ -756,7 +756,7 @@ namespace PrimeiroProjeto
                 //O File.AppendText receberá o caminho completo do arquivo de saída, e criará o "summary.csv", já pronto para escrita / edição
                 using (StreamWriter sw = File.AppendText($@"{targetPath}\summary.csv"))
                 {
-                    //Foreach que percorre a lista de objetos que foram instanciados a partir do arquivo de entrada (1 objeto por linha)
+                    //Foreach que percorre a lista de objetos que foram instanciados a partir do arquivo de entrada (1 objeto ItemProduct por linha)
                     foreach (ItemProduct ip in ips)
                     {
                         //Em cada linha do arquivo de saída, será escrito o Nome,ValorTotal (no formato padrão: 0000.00)
