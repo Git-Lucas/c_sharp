@@ -10,6 +10,9 @@ using PrimeiroProjeto.EntitiesProducts;
 using PrimeiroProjeto.EntitiesPayer;
 using PrimeiroProjeto.EntitiesAccount;
 using PrimeiroProjeto.EntitiesAccount.Exceptions;
+using System.IO;
+using PrimeiroProjeto.EntitiesItemProduct;
+using System.Globalization;
 
 namespace PrimeiroProjeto
 {
@@ -675,45 +678,96 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
+            //try
+            //{
+            //    //Declaração de variáveis
+            //    int number;
+            //    string holder;
+            //    double initialDeposit;
+            //    double withdrawLimit;
+
+            //    //Leitura e entrada dos dados para instanciação do objeto Account, mais o valor inicial de depósito
+            //    Console.Write("Enter account data" +
+            //        "\nNumber: ");
+            //    number = int.Parse(Console.ReadLine());
+            //    Console.Write("Holder: ");
+            //    holder = Console.ReadLine();
+            //    Console.Write("Initial balance: ");
+            //    initialDeposit = double.Parse(Console.ReadLine());
+            //    Console.Write("Withdraw limit: ");
+            //    withdrawLimit = double.Parse(Console.ReadLine());
+
+            //    //Instanciação do objeto Account
+            //    Account account = new Account(number, holder, withdrawLimit);
+            //    //Depósito inicial na conta, através do método Deposit da classe Account
+            //    account.Deposit(initialDeposit);
+
+            //    //Leitura e entrada do valor para saque
+            //    Console.Write("\nEnter amount for withdraw: ");
+            //    //Saque através do método Withdraw
+            //    account.Withdraw(double.Parse(Console.ReadLine()));
+            //    //Apresentação do valor atualizado de saldo
+            //    Console.WriteLine($"New balance: {account.Balance}");
+            //} catch(DomainException e)
+            //{
+            //    //Apresentação da mensagem de erro da ApplicationException (exceções da aplicação; e classe pai da DomainException), instanciada na classe Account, no método Withdraw (por isso "WITHDRAW error:")
+            //    Console.WriteLine($"Withdraw error: {e.Message}");
+            //} catch(Exception e)
+            //{
+            //    //Apresentação da mensagem de erro da Exception (exceções de sistema), em qualquer erro possível no bloco de código dentro de "try" (entrada de dados inválida por exemplo)
+            //    Console.WriteLine($"Unexpected error: {e.Message}");
+            //}
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            //Declaração das variáveis
+            string sourcePath;
+            string targetPath;
+            List<ItemProduct> ips = new List<ItemProduct>();
+
+            //Leitura e entrada do caminho completo do arquivo de entrada (caminho + nome e extensão do arquivo)
+            Console.Write("File path (complete): ");
+            sourcePath = Console.ReadLine();
+            //A pasta destino do arquivo de saída será criada, a partir da pasta onde se encontra o arquivo de entrada
+            targetPath = @$"{Path.GetDirectoryName(sourcePath)}\out";
+
+            //Try Catch a partir do momento que começa a manipulação dos arquivos
             try
             {
-                //Declaração de variáveis
-                int number;
-                string holder;
-                double initialDeposit;
-                double withdrawLimit;
+                //Conteúdo por linha do arquivo de entrada em cada elemento do vetor
+                string[] lines = File.ReadAllLines(sourcePath);
 
-                //Leitura e entrada dos dados para instanciação do objeto Account, mais o valor inicial de depósito
-                Console.Write("Enter account data" +
-                    "\nNumber: ");
-                number = int.Parse(Console.ReadLine());
-                Console.Write("Holder: ");
-                holder = Console.ReadLine();
-                Console.Write("Initial balance: ");
-                initialDeposit = double.Parse(Console.ReadLine());
-                Console.Write("Withdraw limit: ");
-                withdrawLimit = double.Parse(Console.ReadLine());
+                //Foreach percorrendo todo o conteúdo do arquivo de entrada, linha por linha
+                foreach (string line in lines)
+                {
+                    //Os dados: Nome, Preço Unitário e Quantidade; serão armazenados no vetor de string nas posições 0, 1 e 2 (separados por "," no arquivo de entrada)
+                    string[] data = line.Split(",");
+                    //Instanciação do objeto ItemProduct, com os dados recuperados da linha
+                    ItemProduct ip = new ItemProduct(data[0], double.Parse(data[1], CultureInfo.InvariantCulture), double.Parse(data[2], CultureInfo.InvariantCulture));
+                    //Adição do objeto à lista, que será percorrida para a gravação dos dados no arquivo de saída                    
+                    ips.Add(ip);
+                }
 
-                //Instanciação do objeto Account
-                Account account = new Account(number, holder, withdrawLimit);
-                //Depósito inicial na conta, através do método Deposit da classe Account
-                account.Deposit(initialDeposit);
+                //Criação da nova pasta "out", informando o caminho completo que foi atribuído à "targetPath"
+                Directory.CreateDirectory(targetPath);
 
-                //Leitura e entrada do valor para saque
-                Console.Write("\nEnter amount for withdraw: ");
-                //Saque através do método de saque
-                account.Withdraw(double.Parse(Console.ReadLine()));
-                //Apresentação do valor atualizado de saldo
-                Console.WriteLine($"New balance: {account.Balance}");
-            } catch(DomainException e)
+                //Using: abre a instância de StreamWriter, e fecha automaticamente
+                //Recebe o File.AppendText, que internamente será uma instância do FileStream (trabalhar com arquivos a partir das instâncias, melhora o processamento)
+                //O File.AppendText receberá o caminho completo do arquivo de saída, e criará o "summary.csv", já pronto para escrita / edição
+                using (StreamWriter sw = File.AppendText($@"{targetPath}\summary.csv"))
+                {
+                    //Foreach que percorre a lista de objetos que foram instanciados a partir do arquivo de entrada (1 objeto por linha)
+                    foreach (ItemProduct ip in ips)
+                    {
+                        //Em cada linha do arquivo de saída, será escrito o Nome,ValorTotal (no formato padrão: 0000.00)
+                        sw.WriteLine($"{ip.Name},{ip.Total().ToString("F2", CultureInfo.InvariantCulture)}");   
+                    }
+                }
+            //Catch para capturar qualquer erro na manipulação dos arquivos
+            } catch (IOException e)
             {
-                //Apresentação da mensagem de erro da ApplicationException (exceções da aplicação), instanciada na classe Account, no método Withdraw (por isso "WITHDRAW error:")
-                Console.WriteLine($"Withdraw error: {e.Message}");
-            } catch(Exception e)
-            {
-                //Apresentação da mensagem de erro da Exception (exceções de sistema), em qualquer erro possível no bloco de código dentro de "try" (entrada de dados inválida por exemplo)
-                Console.WriteLine($"Unexpected error: {e.Message}");
-            }            
+                Console.Write($"An error ocurred: \n{e.Message}");
+            }
         }
     }
 }

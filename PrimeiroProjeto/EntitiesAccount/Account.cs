@@ -32,13 +32,13 @@ namespace PrimeiroProjeto.EntitiesAccount
             //Verifica se o objeto Account possui saldo insuficiente
             if (amount > Balance)
             {
-                //Instancia um erro na ApplicationException
+                //Instancia um erro na ApplicationException (classe pai da DomainException)
                 throw new DomainException("Not enough balance.");
             }
-            //Veririca se o valor de saque é maior do que o limite definido para o objeto Account
+            //Verifica se o valor de saque é maior do que o limite definido para o objeto Account
             if (amount > WithdrawLimit)
             {
-                //Instancia um erro na ApplicationException
+                //Instancia um erro na ApplicationException (classe pai da DomainException)
                 throw new DomainException("The amount exceeds withdraw limit.");
             }
 
