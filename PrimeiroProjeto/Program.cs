@@ -13,6 +13,8 @@ using PrimeiroProjeto.EntitiesAccount.Exceptions;
 using System.IO;
 using PrimeiroProjeto.EntitiesItemProduct;
 using System.Globalization;
+using PrimeiroProjeto.Contracts.Entities;
+using PrimeiroProjeto.Contracts.Services;
 
 namespace PrimeiroProjeto
 {
@@ -720,54 +722,83 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            //Declaração das variáveis
-            string sourcePath;
-            string targetPath;
-            List<ItemProduct> ips = new List<ItemProduct>();
+            ////Declaração das variáveis
+            //string sourcePath;
+            //string targetPath;
+            //List<ItemProduct> ips = new List<ItemProduct>();
 
-            //Leitura e entrada do caminho completo do arquivo de entrada (caminho + nome e extensão do arquivo)
-            Console.Write("File path (complete): ");
-            sourcePath = Console.ReadLine();
-            //A pasta destino do arquivo de saída será armazenada como string, a partir da pasta onde se encontra o arquivo de entrada
-            targetPath = @$"{Path.GetDirectoryName(sourcePath)}\out";
+            ////Leitura e entrada do caminho completo do arquivo de entrada (caminho + nome e extensão do arquivo)
+            //Console.Write("File path (complete): ");
+            //sourcePath = Console.ReadLine();
+            ////A pasta destino do arquivo de saída será armazenada como string, a partir da pasta onde se encontra o arquivo de entrada
+            //targetPath = @$"{Path.GetDirectoryName(sourcePath)}\out";
 
-            //Try Catch a partir do momento que começa a manipulação dos arquivos
-            try
-            {
-                //Conteúdo por linha do arquivo de entrada em cada elemento do vetor
-                string[] lines = File.ReadAllLines(sourcePath);
+            ////Try Catch a partir do momento que começa a manipulação dos arquivos
+            //try
+            //{
+            //    //Conteúdo por linha do arquivo de entrada em cada elemento do vetor
+            //    string[] lines = File.ReadAllLines(sourcePath);
 
-                //Foreach percorrendo todo o conteúdo do arquivo de entrada, linha por linha
-                foreach (string line in lines)
-                {
-                    //Os dados: Nome, Preço Unitário e Quantidade; serão armazenados no vetor de string nas posições 0, 1 e 2 (separados por "," no arquivo de entrada)
-                    string[] data = line.Split(",");
-                    //Instanciação do objeto ItemProduct, com os dados recuperados da linha
-                    ItemProduct ip = new ItemProduct(data[0], double.Parse(data[1], CultureInfo.InvariantCulture), double.Parse(data[2], CultureInfo.InvariantCulture));
-                    //Adição do objeto à lista, que será percorrida para a gravação dos dados no arquivo de saída                    
-                    ips.Add(ip);
-                }
+            //    //Foreach percorrendo todo o conteúdo do arquivo de entrada, linha por linha
+            //    foreach (string line in lines)
+            //    {
+            //        //Os dados: Nome, Preço Unitário e Quantidade; serão armazenados no vetor de string nas posições 0, 1 e 2 (separados por "," no arquivo de entrada)
+            //        string[] data = line.Split(",");
+            //        //Instanciação do objeto ItemProduct, com os dados recuperados da linha
+            //        ItemProduct ip = new ItemProduct(data[0], double.Parse(data[1], CultureInfo.InvariantCulture), double.Parse(data[2], CultureInfo.InvariantCulture));
+            //        //Adição do objeto à lista, que será percorrida para a gravação dos dados no arquivo de saída                    
+            //        ips.Add(ip);
+            //    }
 
-                //Criação da nova pasta "out", informando o caminho completo que foi atribuído à "targetPath"
-                Directory.CreateDirectory(targetPath);
+            //    //Criação da nova pasta "out", informando o caminho completo que foi atribuído à "targetPath"
+            //    Directory.CreateDirectory(targetPath);
 
-                //Using: abre a instância de StreamWriter, e fecha automaticamente
-                //Recebe o File.AppendText, que internamente será uma instância do FileStream (trabalhar com arquivos a partir das instâncias, melhora o processamento)
-                //O File.AppendText receberá o caminho completo do arquivo de saída, e criará o "summary.csv", já pronto para escrita / edição
-                using (StreamWriter sw = File.AppendText($@"{targetPath}\summary.csv"))
-                {
-                    //Foreach que percorre a lista de objetos que foram instanciados a partir do arquivo de entrada (1 objeto ItemProduct por linha)
-                    foreach (ItemProduct ip in ips)
-                    {
-                        //Em cada linha do arquivo de saída, será escrito o Nome,ValorTotal (no formato padrão: 0000.00)
-                        sw.WriteLine($"{ip.Name},{ip.Total().ToString("F2", CultureInfo.InvariantCulture)}");   
-                    }
-                }
-            //Catch para capturar qualquer erro na manipulação dos arquivos
-            } catch (IOException e)
-            {
-                Console.Write($"An error ocurred: \n{e.Message}");
-            }
+            //    //Using: abre a instância de StreamWriter, e fecha automaticamente
+            //    //Recebe o File.AppendText, que internamente será uma instância do FileStream (trabalhar com arquivos a partir das instâncias, melhora o processamento)
+            //    //O File.AppendText receberá o caminho completo do arquivo de saída, e criará o "summary.csv", já pronto para escrita / edição
+            //    using (StreamWriter sw = File.AppendText($@"{targetPath}\summary.csv"))
+            //    {
+            //        //Foreach que percorre a lista de objetos que foram instanciados a partir do arquivo de entrada (1 objeto ItemProduct por linha)
+            //        foreach (ItemProduct ip in ips)
+            //        {
+            //            //Em cada linha do arquivo de saída, será escrito o Nome,ValorTotal (no formato padrão: 0000.00)
+            //            sw.WriteLine($"{ip.Name},{ip.Total().ToString("F2", CultureInfo.InvariantCulture)}");   
+            //        }
+            //    }
+            ////Catch para capturar qualquer erro na manipulação dos arquivos
+            //} catch (IOException e)
+            //{
+            //    Console.Write($"An error ocurred: \n{e.Message}");
+            //}
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            //Instanciação das variáveis
+            int contractNumber;
+            DateTime contractDate;
+            double contractValue;
+
+            //Leitura e entrada dos dados; e instanciação do objeto Contract
+            Console.Write("Enter contract data" +
+                "\nNumber: ");
+            contractNumber = int.Parse(Console.ReadLine());
+            Console.Write("Date (DD/MM/YYYY): ");
+            contractDate = DateTime.Parse(Console.ReadLine());
+            Console.Write("Contract value: ");
+            contractValue = double.Parse(Console.ReadLine());
+            Contract contract = new Contract(contractNumber, contractDate, contractValue);
+
+            //Leitura e entrada do número de parcelas do contrato na função que adiciona as parcelas ao contrato
+            Console.Write("Enter number of installments: ");
+            contract.AddInstallments(int.Parse(Console.ReadLine()));
+
+            //Instanciação da classe que processa o pagamento (PaymentService), informando como parâmetro o objeto PaypalPaymentService (um dos vários serviços de pagamento possíveis, podendo informar qualquer classe que implementa a interface IPaymentService (UpCasting))
+            PaymentService ps = new PaymentService(new PaypalPaymentService());
+            //Função que processa os valores adicionais das parcelas, informando o objeto Contract como parâmetro
+            ps.ProcessInstallments(contract);
+
+            //Imprime a relação das parcelas já formatadas
+            Console.Write(contract.ToStringInstallments());
         }
     }
 }
