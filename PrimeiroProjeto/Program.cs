@@ -15,6 +15,7 @@ using PrimeiroProjeto.EntitiesItemProduct;
 using System.Globalization;
 using PrimeiroProjeto.Contracts.Entities;
 using PrimeiroProjeto.Contracts.Services;
+using PrimeiroProjeto.EntitiesCourse;
 
 namespace PrimeiroProjeto
 {
@@ -736,18 +737,17 @@ namespace PrimeiroProjeto
             ////Try Catch a partir do momento que começa a manipulação dos arquivos
             //try
             //{
-            //    //Conteúdo por linha do arquivo de entrada em cada elemento do vetor
-            //    string[] lines = File.ReadAllLines(sourcePath);
-
-            //    //Foreach percorrendo todo o conteúdo do arquivo de entrada, linha por linha
-            //    foreach (string line in lines)
+            //    //Using: abre a instância de StreamReader, e fecha automaticamente
+            //    using (StreamReader sr = File.OpenText(sourcePath))
             //    {
-            //        //Os dados: Nome, Preço Unitário e Quantidade; serão armazenados no vetor de string nas posições 0, 1 e 2 (separados por "," no arquivo de entrada)
-            //        string[] data = line.Split(",");
-            //        //Instanciação do objeto ItemProduct, com os dados recuperados da linha
-            //        ItemProduct ip = new ItemProduct(data[0], double.Parse(data[1], CultureInfo.InvariantCulture), double.Parse(data[2], CultureInfo.InvariantCulture));
-            //        //Adição do objeto à lista, que será percorrida para a gravação dos dados no arquivo de saída                    
-            //        ips.Add(ip);
+            //        //O conteúdo do arquivo será percorrido, linha por linha
+            //        while (!sr.EndOfStream)
+            //        {
+            //            //Os dados: Nome, Preço Unitário e Quantidade; serão armazenados no vetor de string nas posições 0, 1 e 2 (separados por "," no arquivo de entrada)
+            //            string[] line = sr.ReadLine().Split(",");
+            //            //Instanciação (com os dados recuperados da linha) e adição  do objeto à lista, que será percorrida para a gravação dos dados no arquivo de saída                    
+            //            ips.Add(new ItemProduct(line[0], double.Parse(line[1], CultureInfo.InvariantCulture), double.Parse(line[2], CultureInfo.InvariantCulture)));
+            //        }
             //    }
 
             //    //Criação da nova pasta "out", informando o caminho completo que foi atribuído à "targetPath"
@@ -762,10 +762,10 @@ namespace PrimeiroProjeto
             //        foreach (ItemProduct ip in ips)
             //        {
             //            //Em cada linha do arquivo de saída, será escrito o Nome,ValorTotal (no formato padrão: 0000.00)
-            //            sw.WriteLine($"{ip.Name},{ip.Total().ToString("F2", CultureInfo.InvariantCulture)}");   
+            //            sw.WriteLine($"{ip.Name},{ip.Total().ToString("F2", CultureInfo.InvariantCulture)}");
             //        }
             //    }
-            ////Catch para capturar qualquer erro na manipulação dos arquivos
+            //    //Catch para capturar qualquer erro na manipulação dos arquivos
             //} catch (IOException e)
             //{
             //    Console.Write($"An error ocurred: \n{e.Message}");
@@ -773,32 +773,102 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            //Instanciação das variáveis
-            int contractNumber;
-            DateTime contractDate;
-            double contractValue;
+            ////Instanciação das variáveis
+            //int contractNumber;
+            //DateTime contractDate;
+            //double contractValue;
 
-            //Leitura e entrada dos dados; e instanciação do objeto Contract
-            Console.Write("Enter contract data" +
-                "\nNumber: ");
-            contractNumber = int.Parse(Console.ReadLine());
-            Console.Write("Date (DD/MM/YYYY): ");
-            contractDate = DateTime.Parse(Console.ReadLine());
-            Console.Write("Contract value: ");
-            contractValue = double.Parse(Console.ReadLine());
-            Contract contract = new Contract(contractNumber, contractDate, contractValue);
+            ////Leitura e entrada dos dados; e instanciação do objeto Contract
+            //Console.Write("Enter contract data" +
+            //    "\nNumber: ");
+            //contractNumber = int.Parse(Console.ReadLine());
+            //Console.Write("Date (DD/MM/YYYY): ");
+            //contractDate = DateTime.Parse(Console.ReadLine());
+            //Console.Write("Contract value: ");
+            //contractValue = double.Parse(Console.ReadLine());
+            //Contract contract = new Contract(contractNumber, contractDate, contractValue);
 
-            //Leitura e entrada do número de parcelas do contrato na função que adiciona as parcelas ao contrato
-            Console.Write("Enter number of installments: ");
-            contract.AddInstallments(int.Parse(Console.ReadLine()));
+            ////Leitura e entrada do número de parcelas do contrato na função que adiciona as parcelas ao contrato
+            //Console.Write("Enter number of installments: ");
+            //contract.AddInstallments(int.Parse(Console.ReadLine()));
 
-            //Instanciação da classe que processa o pagamento (PaymentService), informando como parâmetro o objeto PaypalPaymentService (um dos vários serviços de pagamento possíveis, podendo informar qualquer classe que implementa a interface IPaymentService (UpCasting))
-            PaymentService ps = new PaymentService(new PaypalPaymentService());
-            //Função que processa os valores adicionais das parcelas, informando o objeto Contract como parâmetro
-            ps.ProcessInstallments(contract);
+            ////Instanciação da classe que processa o pagamento (PaymentService), informando como parâmetro o objeto PaypalPaymentService (um dos vários serviços de pagamento possíveis, podendo informar qualquer classe que implementa a interface IPaymentService (UpCasting))
+            //PaymentService ps = new PaymentService(new PaypalPaymentService());
+            ////Função que processa os valores adicionais das parcelas, informando o objeto Contract como parâmetro
+            //ps.ProcessInstallments(contract);
 
-            //Imprime a relação das parcelas já formatadas
-            Console.Write(contract.ToStringInstallments());
+            ////Imprime a relação das parcelas já formatadas
+            //Console.Write(contract.ToStringInstallments());
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            //Instanciação do Instructor Alex
+            Instructor instructor = new Instructor("Alex");
+
+            //Instanciação de 3 Courses
+            instructor.Courses.Add(new Course("A", instructor));
+            instructor.Courses.Add(new Course("B", instructor));
+            instructor.Courses.Add(new Course("C", instructor));
+
+            //Instanciação da lista completa de Students que serão cadastrados no decorrer da execução
+            List<Student> students = new List<Student>();
+
+            //Try para captar qualquer erro na instanciação de cada Student, entre outras operações
+            try
+            {
+                //O exercício solicitava a exibição da quantidade de alunos de um determinado Instruct (por isso a instanciação do Instruct e os Courses para ele)
+                //Para cada Course que o Instruct possui, serão perguntados quantos Students serão cadastrados
+                foreach (Course c in instructor.Courses)
+                {
+                    Console.Write($"How many students for curse {c.Name}? ");
+                    int aux = int.Parse(Console.ReadLine());
+                    //Dentro do foreach de cada Course (variáveis temporárias do escopo foreach), uma lista codesCourse é instanciada sem valores, para preenchimento com os códigos dos alunos cadastrados no curso
+                    HashSet<int> codesCourse = new HashSet<int>();
+                    //For que será executado aux vezes (número de Students que serão adicionados ao Course
+                    for (int i = 0; i < aux; i++)
+                    {
+                        //Leitura e entrada do CodeStudent
+                        int codeStudent = int.Parse(Console.ReadLine());
+                        //A instanciação do Student servirá para comparação se o estudante já foi instanciado alguma vez em tempo de execução ou não (obj.Equals(obj))
+                        Student student = new Student(codeStudent, codesCourse);
+                        //O boolean objExists começa com false a cada entrada de Code, e poderá ser alterado, caso encontrado na lista de Students instanciados em tempo de execução
+                        bool objExists = false;
+                        //Percorre a lista de todos os Students instanciados em tempo de execução
+                        foreach (Student s in students)
+                        {
+                            //Verifica se o Student instanciado (Student não repetido para o Course), já foi instanciado alguma vez em tempo de execução (o Equals vai comparar o Code dos objetos Student)
+                            if (student.Equals(s))
+                            {
+                                //O Code deste Student será adicionado à lista de códigos dos Students já cadastrados naquele Course
+                                codesCourse.Add(s.Code);
+                                //O objeto Student já instanciado, terá o Course do foreach, adicionado à sua lista de Courses na classe Student
+                                s.Courses.Add(c);
+                                //O objeto Instruct terá este Student adicionado à sua lista completa de Students
+                                instructor.Students.Add(s);
+                                //O objeto Course do foreach, terá o objeto Student adicionado à sua lista
+                                c.Students.Add(s);
+                                //O boolean objExists será true (será verificado abaixo)
+                                objExists = true;
+                            }
+                        }
+                        //Verifica se o objeto instanciado continua não existindo, mesmo após percorrer toda a lista de Students instanciados em tempo de execução, e faz as mesmas operações, mas com a nova instância de Student
+                        if (!objExists)
+                        {
+                            students.Add(student);
+                            codesCourse.Add(codeStudent);
+                            student.Courses.Add(c);
+                            instructor.Students.Add(student);
+                            //Além disso, o novo objeto Student será adicionado à lista de todos os objetos Students instanciados em tempo de execução
+                            c.Students.Add(student);
+                        }
+                    }
+                }
+
+                Console.WriteLine($"\n-------------------------------------------------------------\n\n{instructor}");
+            } catch (Exception e)
+            {
+                Console.WriteLine($"An error ocurred: {e.Message}");
+            }
         }
     }
 }
