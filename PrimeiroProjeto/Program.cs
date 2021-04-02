@@ -16,6 +16,7 @@ using System.Globalization;
 using PrimeiroProjeto.Contracts.Entities;
 using PrimeiroProjeto.Contracts.Services;
 using PrimeiroProjeto.EntitiesCourse;
+using PrimeiroProjeto.EntitiesElections;
 
 namespace PrimeiroProjeto
 {
@@ -802,70 +803,86 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            //Instanciação do Instructor Alex
-            Instructor instructor = new Instructor("Alex");
+            ////Instanciação do Instructor Alex
+            //Instructor instructor = new Instructor("Alex");
 
-            //Instanciação de 3 Courses
-            instructor.Courses.Add(new Course("A", instructor));
-            instructor.Courses.Add(new Course("B", instructor));
-            instructor.Courses.Add(new Course("C", instructor));
+            ////Instanciação de 3 Courses
+            //instructor.Courses.Add(new Course("A", instructor));
+            //instructor.Courses.Add(new Course("B", instructor));
+            //instructor.Courses.Add(new Course("C", instructor));
 
-            //Instanciação da lista completa de Students que serão cadastrados no decorrer da execução
-            List<Student> students = new List<Student>();
+            ////Instanciação da lista completa de Students que serão cadastrados no decorrer da execução
+            //List<Student> students = new List<Student>();
 
-            //Try para captar qualquer erro na instanciação de cada Student, entre outras operações
+            ////Try para captar qualquer erro na instanciação de cada Student, entre outras operações
+            //try
+            //{
+            //    //O exercício solicitava a exibição da quantidade de alunos de um determinado Instruct (por isso a instanciação do Instruct e os Courses para ele)
+            //    //Para cada Course que o Instruct possui, serão perguntados quantos Students serão cadastrados
+            //    foreach (Course c in instructor.Courses)
+            //    {
+            //        Console.Write($"How many students for curse {c.Name}? ");
+            //        int aux = int.Parse(Console.ReadLine());
+            //        //Dentro do foreach de cada Course (variáveis temporárias do escopo foreach), uma lista codesCourse é instanciada sem valores, para preenchimento com os códigos dos alunos cadastrados no curso
+            //        HashSet<int> codesCourse = new HashSet<int>();
+            //        //For que será executado aux vezes (número de Students que serão adicionados ao Course
+            //        for (int i = 0; i < aux; i++)
+            //        {
+            //            //Leitura e entrada do CodeStudent
+            //            int codeStudent = int.Parse(Console.ReadLine());
+            //            //A instanciação do Student servirá para comparação se o estudante já foi instanciado alguma vez em tempo de execução ou não (obj.Equals(obj))
+            //            Student student = new Student(codeStudent, codesCourse);
+            //            //O boolean objExists começa com false a cada entrada de Code, e poderá ser alterado, caso encontrado na lista de Students instanciados em tempo de execução
+            //            bool objExists = false;
+            //            //Percorre a lista de todos os Students instanciados em tempo de execução
+            //            foreach (Student s in students)
+            //            {
+            //                //Verifica se o Student instanciado (Student não repetido para o Course), já foi instanciado alguma vez em tempo de execução (o Equals vai comparar o Code dos objetos Student)
+            //                if (student.Equals(s))
+            //                {
+            //                    //O Code deste Student será adicionado à lista de códigos dos Students já cadastrados naquele Course
+            //                    codesCourse.Add(s.Code);
+            //                    //O objeto Student já instanciado, terá o Course do foreach, adicionado à sua lista de Courses na classe Student
+            //                    s.Courses.Add(c);
+            //                    //O objeto Instruct terá este Student adicionado à sua lista completa de Students
+            //                    instructor.Students.Add(s);
+            //                    //O objeto Course do foreach, terá o objeto Student adicionado à sua lista
+            //                    c.Students.Add(s);
+            //                    //O boolean objExists será true (será verificado abaixo)
+            //                    objExists = true;
+            //                }
+            //            }
+            //            //Verifica se o objeto instanciado continua não existindo, mesmo após percorrer toda a lista de Students instanciados em tempo de execução, e faz as mesmas operações, mas com a nova instância de Student
+            //            if (!objExists)
+            //            {
+            //                students.Add(student);
+            //                codesCourse.Add(codeStudent);
+            //                student.Courses.Add(c);
+            //                instructor.Students.Add(student);
+            //                //Além disso, o novo objeto Student será adicionado à lista de todos os objetos Students instanciados em tempo de execução
+            //                c.Students.Add(student);
+            //            }
+            //        }
+            //    }
+
+            //    Console.WriteLine($"\n-------------------------------------------------------------\n\n{instructor}");
+            //} catch (Exception e)
+            //{
+            //    Console.WriteLine($"An error ocurred: {e.Message}");
+            //}
+
+            //----------------------------------------------------------------------------------------------------------------
+
             try
             {
-                //O exercício solicitava a exibição da quantidade de alunos de um determinado Instruct (por isso a instanciação do Instruct e os Courses para ele)
-                //Para cada Course que o Instruct possui, serão perguntados quantos Students serão cadastrados
-                foreach (Course c in instructor.Courses)
-                {
-                    Console.Write($"How many students for curse {c.Name}? ");
-                    int aux = int.Parse(Console.ReadLine());
-                    //Dentro do foreach de cada Course (variáveis temporárias do escopo foreach), uma lista codesCourse é instanciada sem valores, para preenchimento com os códigos dos alunos cadastrados no curso
-                    HashSet<int> codesCourse = new HashSet<int>();
-                    //For que será executado aux vezes (número de Students que serão adicionados ao Course
-                    for (int i = 0; i < aux; i++)
-                    {
-                        //Leitura e entrada do CodeStudent
-                        int codeStudent = int.Parse(Console.ReadLine());
-                        //A instanciação do Student servirá para comparação se o estudante já foi instanciado alguma vez em tempo de execução ou não (obj.Equals(obj))
-                        Student student = new Student(codeStudent, codesCourse);
-                        //O boolean objExists começa com false a cada entrada de Code, e poderá ser alterado, caso encontrado na lista de Students instanciados em tempo de execução
-                        bool objExists = false;
-                        //Percorre a lista de todos os Students instanciados em tempo de execução
-                        foreach (Student s in students)
-                        {
-                            //Verifica se o Student instanciado (Student não repetido para o Course), já foi instanciado alguma vez em tempo de execução (o Equals vai comparar o Code dos objetos Student)
-                            if (student.Equals(s))
-                            {
-                                //O Code deste Student será adicionado à lista de códigos dos Students já cadastrados naquele Course
-                                codesCourse.Add(s.Code);
-                                //O objeto Student já instanciado, terá o Course do foreach, adicionado à sua lista de Courses na classe Student
-                                s.Courses.Add(c);
-                                //O objeto Instruct terá este Student adicionado à sua lista completa de Students
-                                instructor.Students.Add(s);
-                                //O objeto Course do foreach, terá o objeto Student adicionado à sua lista
-                                c.Students.Add(s);
-                                //O boolean objExists será true (será verificado abaixo)
-                                objExists = true;
-                            }
-                        }
-                        //Verifica se o objeto instanciado continua não existindo, mesmo após percorrer toda a lista de Students instanciados em tempo de execução, e faz as mesmas operações, mas com a nova instância de Student
-                        if (!objExists)
-                        {
-                            students.Add(student);
-                            codesCourse.Add(codeStudent);
-                            student.Courses.Add(c);
-                            instructor.Students.Add(student);
-                            //Além disso, o novo objeto Student será adicionado à lista de todos os objetos Students instanciados em tempo de execução
-                            c.Students.Add(student);
-                        }
-                    }
-                }
+                //Leitura do caminho completo do arquivo
+                Console.Write("Enter file full path: ");
+                //Instância do Election, informando o caminho completo do arquivo com os registros de votos como parâmetro
+                Election election = new Election(Console.ReadLine());
 
-                Console.WriteLine($"\n-------------------------------------------------------------\n\n{instructor}");
-            } catch (Exception e)
+                //Imprime o To String da classe Election, que mostra o resultado, após leitura do arquivo, ordenação do Dictionary, e formatação do string
+                Console.WriteLine($"\n{election}");
+            } catch(Exception e)
             {
                 Console.WriteLine($"An error ocurred: {e.Message}");
             }
