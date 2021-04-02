@@ -873,19 +873,25 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            try
-            {
-                //Leitura do caminho completo do arquivo
-                Console.Write("Enter file full path: ");
-                //Instância do Election, informando o caminho completo do arquivo com os registros de votos como parâmetro
-                Election election = new Election(Console.ReadLine());
+            //try
+            //{
+            //    //Leitura do caminho completo do arquivo
+            //    Console.Write("Enter file full path: ");
+            //    //Instância do Election, informando o caminho completo do arquivo com os registros de votos como parâmetro
+            //    Election election = new Election(Console.ReadLine());
 
-                //Imprime o To String da classe Election, que mostra o resultado, após leitura do arquivo, ordenação do Dictionary, e formatação do string
-                Console.WriteLine($"\n{election}");
-            } catch(Exception e)
-            {
-                Console.WriteLine($"An error ocurred: {e.Message}");
-            }
+            //    //Imprime o To String da classe Election, que mostra o resultado, após leitura do arquivo, ordenação do Dictionary, e formatação do string
+            //    Console.WriteLine($"\n{election}");
+            //} catch(Exception e)
+            //{
+            //    Console.WriteLine($"An error ocurred: {e.Message}");
+            //}
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            //Extension Method ElapsedTime (método criado para mostrar na tela a duração entre determinada data e agora: em dias, horas, minutos, ou segundos)
+            DateTime dt = DateTime.Parse("02/04/2021 13:26:00");
+            Console.WriteLine(dt.ElapsedTime());
         }
     }
 }
