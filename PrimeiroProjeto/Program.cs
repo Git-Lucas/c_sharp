@@ -17,6 +17,8 @@ using PrimeiroProjeto.Contracts.Entities;
 using PrimeiroProjeto.Contracts.Services;
 using PrimeiroProjeto.EntitiesCourse;
 using PrimeiroProjeto.EntitiesElections;
+using System.Linq;
+using PrimeiroProjeto.EntitiesProduct.Services;
 
 namespace PrimeiroProjeto
 {
@@ -882,16 +884,34 @@ namespace PrimeiroProjeto
 
             //    //Imprime o To String da classe Election, que mostra o resultado, após leitura do arquivo, ordenação do Dictionary, e formatação do string
             //    Console.WriteLine($"\n{election}");
-            //} catch(Exception e)
+            //} catch (Exception e)
             //{
             //    Console.WriteLine($"An error ocurred: {e.Message}");
             //}
 
             //----------------------------------------------------------------------------------------------------------------
 
-            //Extension Method ElapsedTime (método criado para mostrar na tela a duração entre determinada data e agora: em dias, horas, minutos, ou segundos)
-            DateTime dt = DateTime.Parse("02/04/2021 13:26:00");
-            Console.WriteLine(dt.ElapsedTime());
+            ////Extension Method ElapsedTime (método criado para mostrar na tela a duração entre determinada data e agora: em dias, horas, minutos, ou segundos)
+            //DateTime dt = DateTime.Parse("02/04/2021 13:26:00");
+            //Console.WriteLine(dt.ElapsedTime());
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            //Instancia e adiciona os produtos à List
+            List<EntitiesProducts.Product> products = new List<EntitiesProducts.Product>();
+
+            products.Add(new EntitiesProducts.Product("Tv", 900));
+            products.Add(new EntitiesProducts.Product("Mouse", 50));
+            products.Add(new EntitiesProducts.Product("Tablet", 350.50));
+            products.Add(new EntitiesProducts.Product("HD Case", 80.90));
+
+            //Intancia o ProductService, que servirá para a soma a partir de um critério
+            ProductService ps = new ProductService();
+
+            //Imprime o resultado na tela, chamando a função FilteredSum (retorna um double sum)
+            //O segundo parâmetro é um Func<Product, bool>, que tem como critério a verificação se o produto começa com a letra "T"
+            //Não será criada uma nova lista; neste método, a variável sum é incrementada se a verificação do critério for obedecida
+            Console.WriteLine($"SOMA DOS PRODUTOS QUE INICIAM COM 'T': R${ps.FilteredSum(products, p => p.Name.StartsWith("T")):F2}");
         }
     }
 }
