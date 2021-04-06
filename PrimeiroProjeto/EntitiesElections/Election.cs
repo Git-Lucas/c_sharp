@@ -51,9 +51,11 @@ namespace PrimeiroProjeto.EntitiesElections
         public override string ToString()
         {
             //Declaração de uma var (IOrderedEnumerable<KeyValuePair<string, int>>), que ordenará o Dictionary por Value em ordem descendente (do mais votado, para o menos votado)
-            var sortedElements = from kvp in Elections
-                                 orderby kvp.Value descending
-                                 select kvp;
+            //var sortedElements = from kvp in Elections
+            //                     orderby kvp.Value descending
+            //                     select kvp;
+
+            var sortedElements = Elections.OrderByDescending(kvp => kvp.Value);
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("RESULT:");

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PrimeiroProjeto.EntitiesEmployees
+namespace PrimeiroProjeto.EntitiesEmployee
 {
     class OutsourcedEmployee : Employee
     {

@@ -15,7 +15,7 @@ namespace PrimeiroProjeto.EntitiesProduct.Services
             //Percorre toda a lista
             foreach (Product p in products)
             {
-                //O criteria é o parâmetro do método, que neste momento retornará um bool, a partir de um Product, e ele será verificado a cada elemento da lista de Products
+                //O criteria chama o parâmetro do método (objeto Product), que neste momento retornará um bool, a partir de um Product, e ele será verificado a cada elemento da lista de Products
                 if (criteria.Invoke(p))
                 {
                     sum += p.Price;

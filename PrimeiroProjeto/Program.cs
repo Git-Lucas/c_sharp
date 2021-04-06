@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using PrimeiroProjeto.EntitiesSocialMedia;
 using PrimeiroProjeto.EntitiesStore;
 using PrimeiroProjeto.EntitiesStore.Enums;
-using PrimeiroProjeto.EntitiesEmployees;
+using PrimeiroProjeto.EntitiesEmployee;
+using PrimeiroProjeto.EntitiesEmployee1;
 using PrimeiroProjeto.EntitiesProducts;
 using PrimeiroProjeto.EntitiesPayer;
 using PrimeiroProjeto.EntitiesAccount;
@@ -19,6 +20,7 @@ using PrimeiroProjeto.EntitiesCourse;
 using PrimeiroProjeto.EntitiesElections;
 using System.Linq;
 using PrimeiroProjeto.EntitiesProduct.Services;
+using System.Text;
 
 namespace PrimeiroProjeto
 {
@@ -897,21 +899,61 @@ namespace PrimeiroProjeto
 
             //----------------------------------------------------------------------------------------------------------------
 
-            //Instancia e adiciona os produtos à List
-            List<EntitiesProducts.Product> products = new List<EntitiesProducts.Product>();
+            ////Instancia e adiciona os produtos à List
+            //List<EntitiesProducts.Product> products = new List<EntitiesProducts.Product>();
 
-            products.Add(new EntitiesProducts.Product("Tv", 900));
-            products.Add(new EntitiesProducts.Product("Mouse", 50));
-            products.Add(new EntitiesProducts.Product("Tablet", 350.50));
-            products.Add(new EntitiesProducts.Product("HD Case", 80.90));
+            //products.Add(new EntitiesProducts.Product("Tv", 900));
+            //products.Add(new EntitiesProducts.Product("Mouse", 50));
+            //products.Add(new EntitiesProducts.Product("Tablet", 350.50));
+            //products.Add(new EntitiesProducts.Product("HD Case", 80.90));
 
-            //Intancia o ProductService, que servirá para a soma a partir de um critério
-            ProductService ps = new ProductService();
+            ////Intancia o ProductService, que servirá para a soma a partir de um critério
+            //ProductService ps = new ProductService();
 
-            //Imprime o resultado na tela, chamando a função FilteredSum (retorna um double sum)
-            //O segundo parâmetro é um Func<Product, bool>, que tem como critério a verificação se o produto começa com a letra "T"
-            //Não será criada uma nova lista; neste método, a variável sum é incrementada se a verificação do critério for obedecida
-            Console.WriteLine($"SOMA DOS PRODUTOS QUE INICIAM COM 'T': R${ps.FilteredSum(products, p => p.Name.StartsWith("T")):F2}");
+            ////Imprime o resultado na tela, chamando a função FilteredSum (retorna um double sum)
+            ////O segundo parâmetro é um Func<Product, bool>, que tem como critério a verificação se o produto começa com a letra "T"
+            ////Não será criada uma nova lista; neste método, a variável sum é incrementada se a verificação do critério for obedecida
+            //Console.WriteLine($"SOMA DOS PRODUTOS QUE INICIAM COM 'T': R${ps.FilteredSum(products, p => p.Name.StartsWith("T")):F2}");
+
+            //----------------------------------------------------------------------------------------------------------------
+
+            //Declaração e instanciação das variáveis
+            double salary;
+            List<EntitiesEmployee1.Employee> employees = new List<EntitiesEmployee1.Employee>();
+            
+            try
+            {
+                Console.Write("Enter full file path: ");
+                //StreamReader e FileStream para trabalhar com o arquivo
+                using (StreamReader sr = File.OpenText(Console.ReadLine()))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        string[] data = sr.ReadLine().Split(',');
+                        //Instancia 1 funcionário por linha no arquivo e adiciona na List<Employee>
+                        employees.Add(new EntitiesEmployee1.Employee(data[0], data[1], double.Parse(data[2])));
+                    }
+                }
+
+                //Leitura e entrada do salary que servirá para filtrar a busca na List<Employee>
+                Console.Write("Enter salary: ");
+                salary = double.Parse(Console.ReadLine());
+
+                //r1, email das pessoas que têm salário maior do que 2000, ordenado em ordem alfabética
+                var r1 = employees.Where(e => e.Salary > 2000).OrderBy(e => e.Email).Select(e => e.Email);
+                //r2, que será uma lista de double, contendo os salários dos Employees com letra inicial 'M' no nome
+                var r2 = employees.Where(e => e.Name.StartsWith('M')).Select(e => e.Salary);
+
+                //Imprime na tela
+                Console.WriteLine($"\nEmail of people whose salary is more than {salary}:" +
+                    $"\n{r1.Print()}" +
+                    $"\nSum of salary of people whose name starts with 'M': R${r2.Sum():F2}");
+            } 
+            //Captura qualquer erro
+            catch(Exception e)
+            {
+                Console.WriteLine($"An error ocurred: {e.Message}");
+            }
         }
     }
 }
